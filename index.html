@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What are you like? Grade 5 ESL</title>
+<style>
+:root{--rug:#7b1e2b;--navy:#1c2a5a;--gold:#f0b23a;--ivory:#fbf1d6;--ink:#2b1b1b;--teal:#0f7f7d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:30px 30px 90px;min-height:100vh;color:var(--ink);font:22px/1.4 "Trebuchet MS","Segoe UI",Roboto,sans-serif;background:linear-gradient(45deg,#0000 46%,#a23244 47% 53%,#0000 54%) 0 0/56px 56px,linear-gradient(-45deg,#0000 46%,#a23244 47% 53%,#0000 54%) 0 0/56px 56px,var(--rug)}
+.panel{max-width:1100px;margin:0 auto;background:var(--ivory);box-shadow:0 0 0 8px var(--gold),0 0 0 16px var(--navy),0 0 0 20px var(--gold);overflow:hidden}
+.zig{height:22px;background:linear-gradient(135deg,var(--navy) 25%,#0000 25%) 0 0/22px 22px,linear-gradient(225deg,var(--navy) 25%,#0000 25%) 0 0/22px 22px,var(--gold)}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 24px;border-bottom:3px dashed var(--navy)}
+h1,h2{font-family:Georgia,"Palatino Linotype",serif;color:var(--navy);margin:0 0 8px}
+h1{font-size:32px;flex:1 1 280px;margin:0}h2{font-size:36px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.pill{display:inline-flex;align-items:center;min-height:60px;padding:0 18px;border:3px solid var(--navy);border-radius:30px;background:#fff;color:var(--navy);font-weight:700;font-size:20px}
+.pill.on{background:var(--navy);color:#fff}
+main{padding:22px 26px 30px;min-height:60vh}
+.btn{min-height:64px;padding:0 30px;border:0;border-radius:14px;background:var(--navy);color:#fff;font-weight:700;font-size:24px;box-shadow:0 5px 0 #0c1536}
+.btn:active{transform:translateY(4px);box-shadow:none}
+.go{background:var(--teal);box-shadow:0 5px 0 #0a4948}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;margin:16px 0}
+.tag{min-height:84px;padding:10px 18px;border:5px solid var(--c);border-radius:12px;background:#fff;color:var(--c);font-weight:700;font-size:30px;box-shadow:4px 5px 0 #0002;transform:rotate(var(--r,0deg))}
+.tag:nth-child(odd){--r:-1.5deg}.tag:nth-child(even){--r:1.5deg}
+.sel{background:var(--c);color:#fff;animation:pop .35s}
+.no{opacity:.35;animation:sh .4s}
+.big{min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.em{font-size:64px;line-height:1}.sm{font-size:22px;font-weight:400;color:var(--ink)}
+.card{background:#fff;border:4px solid var(--navy);border-radius:14px;padding:16px 22px;margin:14px 0}
+.coin{display:inline-block;padding:2px 12px;border-radius:20px;background:var(--gold);color:var(--navy);font-weight:700}
+.w{min-height:56px;padding:4px 10px;margin:3px;border:0;border-bottom:4px dotted #0004;background:none;font-size:30px;color:var(--ink)}
+.hit{background:var(--gold);border-bottom-color:var(--navy)}
+.chip{display:inline-block;margin:4px;padding:4px 14px;border:4px solid var(--c);border-radius:10px;color:var(--c);background:#fff;font-weight:700}
+.field{flex:1 1 260px;min-height:64px;padding:0 16px;border:4px solid var(--navy);border-radius:12px;font-size:26px}
+@keyframes sh{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+@keyframes pop{50%{transform:scale(1.08)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<div class="panel"><div class="zig"></div><header id="bar"></header><main id="app"></main></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const W=[["cheerful","😄","Always happy and smiling.","#c92a7e"],["nervous","😰","Worried. Your tummy feels funny.","#1b7fc0"],["selfish","😒","Wants it all. Does not share.","#4d8f1c"],["shy","🙈","Does not like talking to new people.","#0f8f8c"],["talkative","🗣️","Talks and talks and talks!","#c97a00"],["hardworking","📚","Works hard. Never gives up.","#c8322d"]];
+const C=[["Lana",0,"🎶😊","Lana sings* in the hall. She smiles* at everyone."],["Dilan",1,"📝😰","Before the test, Dilan's hands* shake*. He can't sit still."],["Sara",2,"🍪😒","There is one cookie. Sara takes* it all. She does not share*."],["Hana",3,"🎒🙈","The new girl hides* behind her bag. She says nothing*."],["Bakhan",4,"💬🗣️","Bakhan talks* about his cat, his lunch and his trip. He never stops*!"],["Ahmad",5,"✏️📚","Ahmad finishes* his homework. Then he asks for more* work!"]];
+let S={n:["","",""],b:-1,stage:-1,t0:Date.now()};
+try{const z=JSON.parse(localStorage.bz||"{}");if(z.n)S.n=z.n;if(z.b!=null)S.b=z.b}catch(e){}
+const nm=i=>esc((S.n[i]||"").trim()||"Student "+(i+1)),sh=a=>[...a].sort(()=>Math.random()-.5),tot=()=>S.coins.reduce((a,b)=>a+b,0);
+const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=.8;speechSynthesis.speak(u)}catch(e){}};
+const chip=k=>`<span class="chip" style="--c:${W[k][3]}">${W[k][1]} ${W[k][0]}</span>`;
+
+function setup(){return `<h2>What are you like?</h2><div>${W.map((_,k)=>chip(k)).join("")}</div><p>Who is playing today? Type three names. Tap ⭐ for the student who needs extra help: that student gets easier choices and a model sentence.</p>`+[0,1,2].map(i=>`<div class="row"><input class="field" data-n="${i}" placeholder="Student ${i+1}" value="${esc(S.n[i])}"><button class="btn ${S.b==i?"go":""}" data-a="buddy" data-v="${i}">${S.b==i?"⭐ Extra help":"☆ Standard"}</button></div>`).join("")+`<p><button class="btn go" data-a="start">Open the bazaar</button></p>`}
+
+function meet(){return `<h2>Meet the words</h2><p>Tap a tag. Listen. Say it together, in a new voice each time!</p><div class="grid">`+W.map((w,i)=>{const o=S.o[i];return `<button class="tag${o?" big":""}" style="--c:${w[3]}" data-a="open" data-v="${i}">${o?`<span class="em">${w[1]}</span>`:""}${w[0]}${o?`<span class="sm">${w[2]}</span><span class="sm">${["🤫 whisper","📣 loud","🤖 robot"][(o-1)%3]}</span>`:""}</button>`}).join("")+`</div><p><button class="btn go" data-a="stage" data-v="1">Start detecting</button></p>`}
+
+function begin(){S.r=0;S.coins=[0,0,0];S.q=sh(C);prep()}
+function prep(){if(S.r>5)return;const c=S.q[S.r];S.ph="pick";S.bad=[];S.nope=-1;S.o2=S.b==S.r%3?sh([c[1],sh([0,1,2,3,4,5].filter(x=>x!=c[1]))[0]]):[0,1,2,3,4,5];setTimeout(()=>say(c[3].replace(/\*/g,"")),400)}
+
+function detect(){
+ if(S.r>5)return `<h2>Case closed! 🕵️</h2><p>Great teamwork: <span class="coin">🪙 ${tot()}</span></p><div class="row">`+[0,1,2].map(i=>`<span class="card">${nm(i)} <span class="coin">🪙 ${S.coins[i]}</span></span>`).join("")+`</div><p><button class="btn go" data-a="stage" data-v="2">Now: what are YOU like?</button></p>`;
+ const c=S.q[S.r],i=S.r%3,b=S.b==i,w=W[c[1]],ph=S.ph;
+ const toks=c[3].split(" ").map((t,j)=>{const x=t.replace("*","");return ph=="pick"||b?`<span style="margin:0 5px">${x}</span>`:`<button class="w${ph=="next"&&t.includes("*")?" hit":""}${S.nope==j?" no":""}" data-a="ev" data-v="${j}">${x}</button>`}).join(" ");
+ const msg=ph=="pick"?`${nm(i)}, which word fits?`:ph=="proof"?(b?`✔ Yes! Say it: “${c[0]} is ${w[0]}.”`:`✔ ${c[0]} is ${w[0]}! What helps you decide? Tap the clue words.`):`🪙 Nice work, ${nm(i)}!`;
+ const tags=ph=="pick"?S.o2.map(x=>`<button class="tag${S.bad.includes(x)?" no":""}" style="--c:${W[x][3]}" data-a="pick" data-v="${x}">${W[x][1]} ${W[x][0]}</button>`).join(""):`<button class="tag sel" style="--c:${w[3]}">${w[1]} ${w[0]}</button>`;
+ const act=ph=="proof"&&b?`<button class="btn go" data-a="said">✔ I said it</button>`:ph=="next"?`<button class="btn go" data-a="next">${S.r<5?"Next case":"Finish"}</button>`:"";
+ return `<div class="row"><h2 style="flex:1">Case ${S.r+1} of 6: ${nm(i)}${b?" ⭐":""}</h2><span class="coin">🪙 ${S.coins[i]}</span></div><div class="card row"><span class="em">${c[2]}</span><span style="flex:1 1 400px;font-size:30px">${toks}</span><button class="btn" data-a="listen">🔊 Listen</button></div><p><b>${msg}</b></p><div class="grid">${tags}</div>${act}`}
+
+function me(){
+ if(S.m>=3)return cmp();
+ const i=S.m,b=S.b==i,p=S.pk[i];
+ return `<h2>${nm(i)}${b?" ⭐":""}: what are you like?</h2><p>Tap <b>three</b> words that describe you.</p><div class="grid">`+W.map((w,k)=>`<button class="tag${p.includes(k)?" sel":""}" style="--c:${w[3]}" data-a="tog" data-v="${k}">${w[1]} ${w[0]}</button>`).join("")+`</div><div class="card"><b>Say it to a partner:</b> ${b?"“I'm ____.”":"“I think I'm ____ because ____.”"}</div>`+(p.length==3?`<button class="btn go" data-a="mnext">${i<2?"Next student":"Compare us!"}</button>`:`<p>${p.length} of 3 chosen</p>`)}
+
+function cmp(){
+ const P=[[0,1],[0,2],[1,2]].map(([a,b])=>({a,b,s:S.pk[a].filter(k=>S.pk[b].includes(k))})),B=P.reduce((x,y)=>y.s.length>x.s.length?y:x);
+ return `<h2>${B.s.length?`Most alike: ${nm(B.a)} & ${nm(B.b)} 🎉`:"Three different personalities. Great team!"}</h2><p>How similar are you? Look, then talk to each other.</p>`+P.map(p=>`<div class="card"><b>${nm(p.a)} + ${nm(p.b)}</b><br>${p.s.length?p.s.map(chip).join("")+`<br><span class="sm">Say: “We are both ${W[p.s[0]][0]}.”</span>`:`<span class="sm">Say: “I'm ${W[S.pk[p.a][0]][0]}, but you're ${W[S.pk[p.b][0]][0]}.”</span>`}</div>`).join("")+`<p>Team coins: <span class="coin">🪙 ${tot()}</span></p><p><button class="btn" data-a="again">Play again</button></p>`}
+
+const A={
+ buddy(v){S.b=S.b==v?-1:+v},
+ start(){try{localStorage.bz=JSON.stringify({n:S.n,b:S.b})}catch(e){}Object.assign(S,{t0:Date.now(),o:[0,0,0,0,0,0],pk:[[],[],[]],coins:[0,0,0],r:0,m:0,stage:0})},
+ stage(v){v=+v;if(v==S.stage)return;S.stage=v;if(v==1)begin();if(v==2)S.m=0},
+ open(v){S.o[v]++;say(W[v][0])},
+ listen(){say(S.q[S.r][3].replace(/\*/g,""))},
+ pick(v){if(S.ph!="pick")return;v=+v;if(v==S.q[S.r][1]){if(!S.bad.length)S.coins[S.r%3]++;S.ph="proof";say(W[v][0])}else S.bad.push(v)},
+ ev(v){if(S.ph!="proof")return;if(S.q[S.r][3].split(" ")[v].includes("*")){S.coins[S.r%3]++;S.ph="next";S.nope=-1}else S.nope=+v},
+ said(){S.coins[S.r%3]++;S.ph="next"},
+ next(){S.r++;prep()},
+ tog(v){const p=S.pk[S.m],k=+v,x=p.indexOf(k);if(x>=0)p.splice(x,1);else if(p.length<3)p.push(k)},
+ mnext(){S.m++},
+ again(){location.reload()}
+};
+document.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(t){A[t.dataset.a](t.dataset.v);draw()}});
+document.addEventListener("input",e=>{if(e.target.dataset.n)S.n[e.target.dataset.n]=e.target.value});
+
+function tick(){const c=$("#clk");if(!c)return;const s=Math.floor((Date.now()-S.t0)/1e3);c.textContent="⏱ "+Math.floor(s/60)+":"+String(s%60).padStart(2,"0")+" / 15:00";c.style.background=s>900?"var(--gold)":"#fff"}
+function draw(){
+ $("#bar").innerHTML=`<h1>The Character Bazaar</h1>`+(S.stage<0?"":[["Meet the words",3],["Clue detective",7],["Me in 3 words",5]].map((p,i)=>`<button class="pill${S.stage==i?" on":""}" data-a="stage" data-v="${i}">${p[0]} (${p[1]} min)</button>`).join("")+`<span class="pill" id="clk"></span>`);
+ $("#app").innerHTML=[setup,meet,detect,me][S.stage+1]();tick()}
+setInterval(tick,1000);draw();
+</script></body></html>
